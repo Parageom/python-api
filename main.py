@@ -51,11 +51,13 @@ def deleterecord():
     with sqlite3.connect("Movie.db") as con:
         try:
             cur = con.cursor()
-            cur.execute("delete from Movies where id = ?", id)
+            cur.execute("delete from Movie where id = ?", id)
             msg = "record successfully deleted"
         except:
             msg = "can't be deleted"
-
+        finally:
+            return msg
+            con.close()
 
 @app.route("/updatedetails/", methods=["POST"])
 def updaterecord():
@@ -74,7 +76,7 @@ def updaterecord():
             cur.execute("UPDATE Movie SET name=?, genre=?, releasedate=?, agelimit=?, runningtime=? WHERE id=?",
                         (name, genre, releasedate, agelimit, runningtime, id))
             con.commit()
-            msg = "Employee successfully Updated"
+            msg = "Movie successfully Updated"
     except:
         con.rollback()
         msg = "We can not update the Movie to the list"

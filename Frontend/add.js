@@ -2,9 +2,9 @@ function sendPost(){
     const data = JSON.stringify({
         name: document.getElementById("name").value,
         genre: document.getElementById("genre").value,
-        releasedate:document.getElementById("release date").value,
-        agelimit:document.getElementById("age limit").value,
-        runningtime:document.getElementById("running time").value
+        releasedate:document.getElementById("releasedate").value,
+        agelimit:document.getElementById("agelimit").value,
+        runningtime:document.getElementById("runningtime").value
 
 
       

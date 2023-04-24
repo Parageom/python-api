@@ -22,7 +22,7 @@ request.send()
           console.log(request.status);
           var div = document.createElement("tr");
             var mainContainer = document.getElementById(id);
-          div.innerHTML = "<th>"+query.id+"</th><th><input id='name"+query.id+"' value='"+query.Name+"'/></th><th><input id='genre"+query.id+"' value='"+query.Genre+"'/></th><th><input id='release date"+query.id+"' value='"+query.ReleasedDate+"'/></th><th><input id='age limit"+query.id+"' value='"+query.AgeLimit+"'/></th><th><input id='running time"+query.id+"' value='"+query.RunningTime+"'/></th>"+"<button onclick = 'deleterecord("+query.id+")' type = 'submit' value='Submit'>Delete</button>"+"<button onclick = 'update("+query.id+")'>Update</button>" ;
+            div.innerHTML = "<td>"+query.id+"</td><td><input id='name"+query.id+"' placeholder='"+query.name+"' value='"+query.name+"'/></td><td><input id='genre"+query.id+"' placeholder='"+query.genre+"' value='"+query.genre+"'/></td><td><input id='releasedate"+query.id+"' placeholder='"+query.releasedate+"' value='"+query.releasedate+"'/></td><td><input id='agelimit"+query.id+"' placeholder='"+query.agelimit+"' value='"+query.agelimit+"'/></td><td><input id='runningtime"+query.id+"' placeholder='"+query.runningtime+"' value='"+query.runningtime+"'/></td>"+"<button onclick = 'deleterecord("+query.id+")' type = 'submit' value='Submit'>Delete</button>"+"<button onclick = 'update("+query.id+")'>Update</button>" ;
           mainContainer.appendChild(div)
         })
       } else {
@@ -47,9 +47,9 @@ function update(id){
     id: id,
     name: document.getElementById("name"+id).value,
     genre: document.getElementById("genre"+id).value,
-    releasedate:document.getElementById("release date"+id).value,
-    agelimit:document.getElementById("age limit"+id).value,
-    runningtime:document.getElementById("running time"+id).value
+    releasedate:document.getElementById("releasedate"+id).value,
+    agelimit:document.getElementById("agelimit"+id).value,
+    runningtime:document.getElementById("runningtime"+id).value
   });
   
   navigator.sendBeacon('http://127.0.0.1:5000/updatedetails/', data);

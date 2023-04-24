@@ -6,14 +6,16 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/view")
 def view():
     con = sqlite3.connect("Movie.db")
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute("select * from Movies")
+    cur.execute("select * from Movie")
     rows = cur.fetchall()
     return json.dumps([dict(ix) for ix in rows])
+
 
 @app.route("/savedetails/", methods=["POST"])
 def saveDetails():
@@ -23,13 +25,14 @@ def saveDetails():
         print(data)
         name = data["name"]
         genre = data["genre"]
-        releasedate = data["release date"]
-        agelimit = data["age limit"]
-        runningtime = data["running time"]
+        releasedate = data["releasedate"]
+        agelimit = data["agelimit"]
+        runningtime = data["runningtime"]
 
         with sqlite3.connect("Movie.db") as con:
             cur = con.cursor()
-            cur.execute("INSERT into Employees (name, genre, release date, age limit, running time) values (?,?,?,?,?)",(name, genre, releasedate, agelimit, runningtime))
+            cur.execute("INSERT into Movie (name, genre, releasedate, agelimit, runningtime) values (?,?,?,?,?)",
+                        (name, genre, releasedate, agelimit, runningtime))
             con.commit()
             msg = "Movie successfully Added"
     except:
@@ -38,6 +41,7 @@ def saveDetails():
     finally:
         return name
         con.close()
+
 
 @app.route("/deleterecord/", methods=["POST"])
 def deleterecord():
@@ -52,6 +56,7 @@ def deleterecord():
         except:
             msg = "can't be deleted"
 
+
 @app.route("/updatedetails/", methods=["POST"])
 def updaterecord():
     try:
@@ -60,13 +65,14 @@ def updaterecord():
         id = data["id"]
         name = data["name"]
         genre = data["genre"]
-        releasedate = data["release date"]
-        agelimit = data["age limit"]
-        runningtime = data["running time"]
+        releasedate = data["releasedate"]
+        agelimit = data["agelimit"]
+        runningtime = data["runningtime"]
 
         with sqlite3.connect("Movie.db") as con:
             cur = con.cursor()
-            cur.execute("UPDATE Employees SET name=?, genre=?, release date=?, age limit=?, running time=? WHERE id=?", (name, genre, releasedate, agelimit, runningtime, id))
+            cur.execute("UPDATE Movie SET name=?, genre=?, releasedate=?, agelimit=?, runningtime=? WHERE id=?",
+                        (name, genre, releasedate, agelimit, runningtime, id))
             con.commit()
             msg = "Employee successfully Updated"
     except:
@@ -75,6 +81,7 @@ def updaterecord():
     finally:
         return msg
         con.close()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
